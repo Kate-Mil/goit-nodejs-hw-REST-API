@@ -4,9 +4,12 @@
 import express from "express";
 import logger from "morgan";
 import cors from "cors";
+import dotevn from "dotenv";
 
 // const contactsRouter = require("./routes/api/contacts");
 import contactsRouter from "./routes/api/contacts.js";
+
+dotevn.config();
 
 const app = express();
 
