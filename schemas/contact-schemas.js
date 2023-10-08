@@ -26,4 +26,5 @@ export const contactAddSchema = Joi.object({
       "string.email": `The "phone" must correspond to the format (111) 111-1111`,
       "any.required": `"phone" required field`,
     }),
+  favorite: Joi.boolean(),
 });
