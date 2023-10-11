@@ -1,4 +1,3 @@
-// import * as contactsServer from "../models/contacts.js";
 import Contact from "../models/Contact.js";
 import { HttpError } from "../helpers/index.js";
 import { ctrlWrapper } from "../decorators/index.js";
@@ -10,7 +9,6 @@ const getAll = async (req, res) => {
 
 const getById = async (req, res) => {
   const { contactId } = req.params;
-  // const result = await Contact.findOne({ _id: contactId });
   const result = await Contact.findById(contactId);
   if (!result) {
     throw HttpError(404, `Contact with ${contactId} is not found`);
@@ -29,7 +27,6 @@ const delById = async (req, res) => {
   if (!result) {
     throw HttpError(404, `Contact with ${contactId} is not found`);
   }
-  // res.json(result);
   res.json({ message: "Delete success" });
 };
 

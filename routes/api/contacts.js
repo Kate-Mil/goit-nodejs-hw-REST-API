@@ -1,4 +1,3 @@
-// const express = require('express')
 import express from "express";
 
 import contactsController from "../../controllers/contacts-controller.js";
