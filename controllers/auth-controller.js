@@ -37,6 +37,7 @@ const login = async (req, res) => {
   };
 
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "23h" });
+  console.log(token);
 
   res.status(200).json({
     token: token,
@@ -45,7 +46,11 @@ const login = async (req, res) => {
       subscription: "starter",
     },
   });
+
+  res.json({ token: token });
 };
+
+const logout = async (req, res) => {};
 
 export default {
   register: ctrlWrapper(register),
