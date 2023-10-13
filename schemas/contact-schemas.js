@@ -27,5 +27,4 @@ export const contactAddSchema = Joi.object({
       "any.required": `"phone" required field`,
     }),
   favorite: Joi.boolean(),
-  owner: Joi.string(),
 });
