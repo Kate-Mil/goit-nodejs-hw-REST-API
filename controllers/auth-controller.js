@@ -49,7 +49,6 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  console.log(req.user);
   const { _id } = req.user;
   await User.findByIdAndUpdate(_id, { token: "" });
   res.status(204).json();
@@ -60,9 +59,21 @@ const getCurrent = async (req, res) => {
   res.status(200).json({ email, subscription });
 };
 
+const updateSubscription = async (req, res) => {
+  const { subscription } = req.body;
+  const user = req.user;
+  console.log(subscription);
+  console.log(user);
+
+  await User.findByIdAndUpdate(user._id, { subscription });
+
+  res.status(201).json({ email: user.email, subscription });
+};
+
 export default {
   register: ctrlWrapper(register),
   login: ctrlWrapper(login),
   getCurrent: ctrlWrapper(getCurrent),
   logout: ctrlWrapper(logout),
+  updateSubsctiption: ctrlWrapper(updateSubscription),
 };
