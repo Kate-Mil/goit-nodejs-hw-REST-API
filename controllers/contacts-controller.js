@@ -3,10 +3,17 @@ import { HttpError } from "../helpers/index.js";
 import { ctrlWrapper } from "../decorators/index.js";
 
 const getAll = async (req, res) => {
-  const { page = 1, limit = 20 } = req.query;
+  const { page = 1, limit = 20, favorite } = req.query;
   const skip = (page - 1) * limit;
   const { _id: owner } = req.user;
-  const result = await Contact.find({ owner }, "-createdAt -updatedAt", {
+
+  let query = { owner };
+
+  if (favorite !== undefined) {
+    query.favorite = `${favorite}`;
+  }
+
+  const result = await Contact.find(query, "-createdAt -updatedAt", {
     skip,
     limit,
   }).populate("owner", "email subscription");
