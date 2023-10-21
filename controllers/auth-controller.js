@@ -43,7 +43,7 @@ const login = async (req, res) => {
     token: token,
     user: {
       email: user.email,
-      subscription: "starter",
+      subscription: user.subscription,
     },
   });
 };
