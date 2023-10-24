@@ -16,7 +16,7 @@ const contactSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  avatarUrl: {
+  avatar: {
     type: String,
   },
   owner: {

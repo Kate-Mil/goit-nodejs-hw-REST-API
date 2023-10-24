@@ -1,10 +1,8 @@
 import fs from "node:fs/promises";
 import path from "path";
-
 import Contact from "../models/Contact.js";
 import { HttpError } from "../helpers/index.js";
 import { ctrlWrapper } from "../decorators/index.js";
-import { join } from "node:path";
 
 const avatarPath = path.resolve("public", "avatars");
 
@@ -29,7 +27,7 @@ const getAll = async (req, res) => {
 const getById = async (req, res) => {
   const { _id: owner } = req.user;
   const { contactId } = req.params;
-  const result = await Contact.findOne({ _id: id, owner });
+  const result = await Contact.findOne({ _id: contactId, owner });
   if (!result) {
     throw HttpError(404, `Contact with ${contactId} is not found`);
   }
@@ -38,7 +36,6 @@ const getById = async (req, res) => {
 
 const add = async (req, res) => {
   const { _id: owner } = req.user;
-
   const { path: oldPath, filename } = req.file;
   const newPath = path.join(avatarPath, filename);
   await fs.rename(oldPath, newPath);
@@ -51,7 +48,7 @@ const add = async (req, res) => {
 const delById = async (req, res) => {
   const { _id: owner } = req.user;
   const { contactId } = req.params;
-  const result = await Contact.findOneAndDelete({ _id: id, owner });
+  const result = await Contact.findOneAndDelete({ _id: contactId, owner });
   if (!result) {
     throw HttpError(404, `Contact with ${contactId} is not found`);
   }
@@ -61,7 +58,10 @@ const delById = async (req, res) => {
 const updateById = async (req, res) => {
   const { _id: owner } = req.user;
   const { contactId } = req.params;
-  const result = await Contact.findOneAndUpdate({ _id: id, owner }, req.body);
+  const result = await Contact.findOneAndUpdate(
+    { _id: contactId, owner },
+    req.body
+  );
   if (!result) {
     throw HttpError(404, `Contact with ${contactId} is not found`);
   }
@@ -71,7 +71,10 @@ const updateById = async (req, res) => {
 const updateStatusContact = async (req, res) => {
   const { _id: owner } = req.user;
   const { contactId } = req.params;
-  const result = await Contact.findOneAndUpdate({ _id: id, owner }, req.body);
+  const result = await Contact.findOneAndUpdate(
+    { _id: contactId, owner },
+    req.body
+  );
   if (!result) {
     throw HttpError(404, `Not found`);
   }
