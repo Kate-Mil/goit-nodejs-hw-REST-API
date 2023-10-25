@@ -6,6 +6,7 @@ import User from "../models/User.js";
 import { HttpError } from "../helpers/index.js";
 import { ctrlWrapper } from "../decorators/index.js";
 import gravatar from "gravatar";
+import Jimp from "jimp";
 
 const { JWT_SECRET } = process.env;
 const avatarPath = path.resolve("public", "avatars");
@@ -92,10 +93,15 @@ const updateAvatar = async (req, res) => {
     throw HttpError(404, `Please add image`);
   }
 
+  const avatar = await Jimp.read(req.file.path);
+  avatar.resize(250, 250);
+  avatar.write(req.file.path);
+
   const { path: oldPath, filename } = req.file;
   const newPath = path.join(avatarPath, filename);
   await fs.rename(oldPath, newPath);
   const avatarUrl = path.join("avatars", filename);
+
   const user = req.user;
 
   await User.findByIdAndUpdate(user._id, { avatarUrl });
