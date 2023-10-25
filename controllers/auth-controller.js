@@ -76,8 +76,8 @@ const logout = async (req, res) => {
 };
 
 const getCurrent = async (req, res) => {
-  const { email, subscription } = req.user;
-  res.status(200).json({ email, subscription });
+  const { email, subscription, avatarUrl } = req.user;
+  res.status(200).json({ email, subscription, avatarUrl });
 };
 
 const updateSubscription = async (req, res) => {
