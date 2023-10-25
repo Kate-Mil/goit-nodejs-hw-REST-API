@@ -63,7 +63,6 @@ const login = async (req, res) => {
     token: token,
     user: {
       email: user.email,
-      avatarUrl: user.avatarUrl,
       subscription: user.subscription,
     },
   });
