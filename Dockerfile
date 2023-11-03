@@ -8,4 +8,4 @@ RUN npm install
 
 EXPOSE 3000
 
-CMD ["node", "bin/server"]
+CMD ["node", "server.js"]
